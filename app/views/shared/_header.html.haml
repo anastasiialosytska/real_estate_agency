@@ -1,0 +1,11 @@
+%header.navbar.navbar-default
+  .container
+    - if current_user.is_a? User
+      %li
+        = link_to t('.log_out'), destroy_user_session_path, data: { turbo_method: :delete }
+    - elsif current_user.is_a? Agent
+      %li
+        = link_to t('.log_out'), destroy_agent_session_path, data: { turbo_method: :delete }
+    - else
+      %li
+        = link_to t('.log_in'), new_session_path(User)
