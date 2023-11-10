@@ -2,8 +2,9 @@
 
 class Users::SessionsController < Devise::SessionsController
   def new
-    @client = Client.new
-    @agent = Agent.new
-    super
+    super do
+      @client = Client.new
+      @agent = Agent.new
+    end
   end
 end

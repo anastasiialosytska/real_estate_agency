@@ -1,6 +1,6 @@
 %header.bg-indigo-400
   .container.mx-auto.px-6.py-3
-    - if current_client || current_agent || current_user
+    - if current_user
       = link_to t('.log_out'), destroy_user_session_path, data: { turbo_method: :delete }
     - else
       = link_to t('.log_in'), new_session_path(User)
@@ -20,7 +20,7 @@
               %path{d: "M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z", "fill-rule" => "evenodd"}
     %nav.sm:flex.sm:justify-center.sm:items-center.mt-4{":class" => "isOpen ? '' : 'hidden'"}
       .flex.flex-col.sm:flex-row
-        %a.mt-3.text-gray-600.hover:underline.sm:mx-3.sm:mt-0{href: "#"} Home
+        = link_to 'Home', root_path, class: 'mt-3 text-gray-600 hover:underline sm:mx-3 sm:mt-0'
         %a.mt-3.text-gray-600.hover:underline.sm:mx-3.sm:mt-0{href: "#"} Shop
         %a.mt-3.text-gray-600.hover:underline.sm:mx-3.sm:mt-0{href: "#"} Categories
         %a.mt-3.text-gray-600.hover:underline.sm:mx-3.sm:mt-0{href: "#"} Contact
