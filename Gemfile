@@ -23,8 +23,12 @@ gem 'bootsnap', require: false
 gem 'tzinfo-data', platforms: %i[windows jruby]
 
 group :development, :test do
+  gem 'factory_bot_rails', '~> 6.2'
+  gem 'faker'
   gem 'rspec-rails', '~> 6.0.0'
   gem 'rubocop', require: false
+  gem 'rubocop-rails', '~> 2.15', require: false
+  gem 'rubocop-rspec', '~> 2.10', require: false
 end
 
 group :development do
