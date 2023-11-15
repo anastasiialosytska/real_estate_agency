@@ -1,0 +1,26 @@
+= form_for @real_estate_object do |f|
+  = f.label :category
+  = f.collection_select :category_id, Category.all, :id, :title
+
+  = f.label :title
+  = f.text_field :title
+
+  = f.label :description
+  = f.text_field :description
+
+  = f.label :area
+  = f.number_field :area
+
+  = f.label :rooms
+  = f.number_field :rooms
+
+  = f.label :floor
+  = f.number_field :floor
+
+  = f.label :price
+  = f.number_field :price
+
+  = f.label :images
+  = f.file_field :images, multiple: true
+
+  = f.submit

@@ -2,6 +2,7 @@
   .container.mx-auto.px-6.py-3
     - if current_user
       = link_to t('.log_out'), destroy_user_session_path, data: { turbo_method: :delete }
+      = link_to 'new announcement', new_real_estate_object_path
     - else
       = link_to t('.log_in'), new_session_path(User)
     .flex.items-center.justify-between

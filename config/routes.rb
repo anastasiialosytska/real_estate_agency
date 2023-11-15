@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   devise_for :agents, only: :registrations, controllers: { registrations: 'users/registrations' }
   devise_for :clients, only: :registrations, controllers: { registrations: 'users/registrations' }
   root 'pages#home'
+  resources :real_estate_objects
 end
