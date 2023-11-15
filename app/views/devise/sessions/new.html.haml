@@ -1,0 +1,87 @@
+.container.mt-20.mb-40.grid.grid-cols-2.gap-4.mx-auto
+  .grid.grid-rows-2
+    .ml-28.mr-14
+      %h4.text-center.text-xl.text-indigo-900.font-display.font-semibold.lg:text-left.xl:text-xl.xl:text-bold
+        Already have an account? Log in, please
+      .mt-12
+        = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+          %div
+            = f.label :email, 'Email Address', class: 'text-sm font-bold text-gray-700 tracking-wide'
+          %div
+            = f.email_field :email, placeholder: 'mike@gmail.com', class: 'w-full text-lg py-2 border-b border-gray-300'
+          .mt-8
+            %div
+              = f.label :password, class: 'text-sm font-bold text-gray-700 tracking-wide'
+            %div
+              = f.password_field :password, placeholder: "Enter your password", class: 'w-full text-lg py-2 border-b border-gray-300'
+          - if devise_mapping.rememberable?
+            .field
+              = f.check_box :remember_me
+              = f.label :remember_me
+          .mt-10
+            = f.submit "Log in", class: 'bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600 shadow-lg'
+    .ml-28.mr-14
+      %h4.text-center.text-xl.text-indigo-900.font-display.font-semibold.lg:text-left.xl:text-xl.xl:text-bold
+        Register a new account
+      .mt-12
+        = form_for(@client, as: :client, url: registration_path(:client)) do |f|
+          = render "devise/shared/error_messages", resource: resource
+          %div
+            = f.label :email, 'Email Address', class: 'text-sm font-bold text-gray-700 tracking-wide'
+          %div
+            = f.email_field :email, placeholder: 'mike@gmail.com', class: 'w-full text-lg py-2 border-b border-gray-300'
+          .mt-8
+            %div
+              = f.label :password, class: 'text-sm font-bold text-gray-700 tracking-wide'
+              - if @minimum_password_length
+                %em
+                  (#{@minimum_password_length} characters minimum)
+            = f.password_field :password, placeholder: "Enter your password", class: 'w-full text-lg py-2 border-b border-gray-300'
+          .mt-8
+            %div
+              = f.label :password_confirmation, class: 'text-sm font-bold text-gray-700 tracking-wide'
+            %div
+              = f.password_field :password_confirmation, placeholder: "Repeat your password", class: 'w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500'
+          .mt-10
+            = f.submit "Register", class: 'bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600 shadow-lg'
+  .mr-28.ml-14
+    %h4.text-center.text-2xl.text-indigo-900.font-display.font-semibold.lg:text-left.xl:text-2xl.xl:text-bold
+      Become an agent
+    %span.text-gray.text-lg Place your first three ads for free
+    .mt-12
+      = form_for(@agent, as: :agent, url: registration_path(:agent)) do |f|
+        = render "devise/shared/error_messages", resource: resource
+        %div
+          = f.label :name, class: 'text-sm font-bold text-indigo-900 tracking-wide'
+        %div
+          = f.text_field :name, placeholder: 'e.g. Jon Snow', class: 'w-full text-lg py-2 border-b border-gray-300'
+        .mt-8
+          %div
+            = f.label :email, class: 'text-sm font-bold text-indigo-900 tracking-wide'
+          %div
+            = f.email_field :email, placeholder: 'mike@gmail.com', class: 'w-full text-lg py-2 border-b border-gray-300'
+        .mt-8
+          %div
+            = f.label :phone, class: 'text-sm font-bold text-indigo-900 tracking-wide'
+          %div
+            = f.text_field :phone, placeholder: '12345678', class: 'w-full text-lg py-2 border-b border-gray-300'
+        .mt-8
+          %div
+            = f.label :company_name, class: 'text-sm font-bold text-indigo-900 tracking-wide'
+          %div
+            = f.text_field :company_name, placeholder: 'Spain Estate', class: 'w-full text-lg py-2 border-b border-gray-300'
+        .mt-8
+          %div
+            = f.label :password, class: 'text-sm font-bold text-indigo-900 tracking-wide'
+            - if @minimum_password_length
+              %em
+                (#{@minimum_password_length} characters minimum)
+          %div
+            = f.password_field :password, placeholder: 'Enter your password', class: 'w-full text-lg py-2 border-b border-gray-300'
+        .mt-8
+          %div
+            = f.label :password_confirmation, class: 'text-sm font-bold text-indigo-900 tracking-wide'
+          %div
+          = f.password_field :password_confirmation, placeholder: 'Repeat your password', class: 'w-full text-lg py-2 border-b border-gray-300'
+        .mt-8
+          = f.submit "Become an agent", class: 'bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600 shadow-lg'
