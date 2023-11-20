@@ -3,6 +3,8 @@
 source 'https://rubygems.org'
 
 ruby '3.1.3'
+gem 'draper'
+gem "font-awesome-sass"
 gem 'importmap-rails'
 gem 'jbuilder'
 gem 'pg', '~> 1.1'

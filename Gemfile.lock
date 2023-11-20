@@ -54,6 +54,10 @@ GEM
       globalid (>= 0.3.6)
     activemodel (7.1.1)
       activesupport (= 7.1.1)
+    activemodel-serializers-xml (1.0.2)
+      activemodel (> 5.x)
+      activesupport (> 5.x)
+      builder (~> 3.1)
     activerecord (7.1.1)
       activemodel (= 7.1.1)
       activesupport (= 7.1.1)
@@ -113,6 +117,13 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.5.0)
+    draper (4.0.2)
+      actionpack (>= 5.0)
+      activemodel (>= 5.0)
+      activemodel-serializers-xml (>= 1.0)
+      activesupport (>= 5.0)
+      request_store (>= 1.0)
+      ruby2_keywords
     drb (2.1.1)
       ruby2_keywords
     error_highlight (0.5.1)
@@ -125,6 +136,8 @@ GEM
     faker (2.23.0)
       i18n (>= 1.8.11, < 2)
     ffi (1.16.3)
+    font-awesome-sass (6.4.2)
+      sassc (~> 2.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     haml (6.2.3)
@@ -249,6 +262,8 @@ GEM
     regexp_parser (2.8.2)
     reline (0.3.9)
       io-console (~> 0.5)
+    request_store (1.5.1)
+      rack (>= 1.4)
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
@@ -301,6 +316,8 @@ GEM
       ffi (~> 1.12)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
+    sassc (2.4.0)
+      ffi (~> 1.9)
     selenium-webdriver (4.14.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
@@ -359,9 +376,11 @@ DEPENDENCIES
   capybara
   carrierwave (~> 3.0)
   devise (~> 4.9, >= 4.9.3)
+  draper
   error_highlight (>= 0.4.0)
   factory_bot_rails (~> 6.2)
   faker
+  font-awesome-sass
   haml-rails (~> 2.1)
   importmap-rails
   jbuilder

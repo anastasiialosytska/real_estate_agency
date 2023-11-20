@@ -2,6 +2,6 @@
 
 class PagesController < ApplicationController
   def home
-    @real_estate_objects = RealEstateObject.all
+    @real_estate_objects = RealEstateObject.all.decorate
   end
 end
