@@ -1,4 +1,5 @@
 %footer.bg-gray-200
   .container.mx-auto.px-6.py-3.flex.justify-between.items-center
-    %a.text-xl.font-bold.text-gray-500.hover:text-gray-400{href: "#"} REAgency
-    %p.py-2.text-gray-500.sm:py-0 All rights reserved
+    = link_to t('.company_name'), root_path, class: 'text-xl font-bold text-gray-500 hover:text-gray-400'
+    %p.py-2.text-gray-500.sm:py-0
+      = t('.all_rights')

@@ -7,7 +7,7 @@
       = @real_estate_object.title
     %p
       = @real_estate_object.description
-    %p € #{@real_estate_object.price}
+    %p #{@real_estate_object.price}#{t('.currency')}
     %p
       = @real_estate_object.area
     %p

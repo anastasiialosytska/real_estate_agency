@@ -1,7 +1,7 @@
 .container.mt-20.mb-40.grid.grid-cols-2.gap-4.mx-auto
   .ml-28.mr-14
     %h4.text-center.text-xl.text-indigo-900.font-display.font-semibold.lg:text-left.xl:text-xl.xl:text-bold
-      Create a new object
+      = t('.create')
     .mt-12
       = form_for @real_estate_object, html: { multipart: true } do |f|
         %div
@@ -41,10 +41,10 @@
         .mt-8
           = f.fields_for :photo_attachments do |i|
             %div
-              = i.label :photo_attachments, 'Photos', class: 'text-sm font-bold text-gray-700 tracking-wide'
+              = i.label :photo_attachments, t('.photos'), class: 'text-sm font-bold text-gray-700 tracking-wide'
             %div
               = i.file_field :photo_attachment, multiple: true, include_hidden: false, name: "photo_attachments[photo][]", class: 'w-full text-lg py-2 border-b border-gray-300'
-          = f.submit "Add object", class: 'bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600 shadow-lg'
+          = f.submit t('.add'), class: 'bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600 shadow-lg'
   .ml-28.mr-14
     = image_tag(asset_url('create_object_image.jpeg'),
                     class: 'mb-24 w-100',

@@ -6,9 +6,12 @@
       = link_to real_estate_object.title, real_estate_object_path(real_estate_object)
     %p
       = real_estate_object.description
-    %p € #{real_estate_object.price}
-    %p #{real_estate_object.area} м²
-    %p Rooms: #{real_estate_object.rooms}
-    %p Floor: #{real_estate_object.floor}
+    %p #{real_estate_object.price}#{t('.currency')}
+    %p
+      = t('.area', area: real_estate_object.area)
+    %p
+      = t('.rooms', rooms: real_estate_object.rooms)
+    %p
+      = t('.floor', floor: real_estate_object.floor)
     %p
       = real_estate_object.category.title
