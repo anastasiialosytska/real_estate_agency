@@ -1,0 +1,18 @@
+.col-xs-6.col-sm-3
+  .general-thumb-wrap
+    - real_estate_object.photo_attachments.each do |attachment|
+      = image_tag attachment.photo.url(:thumb)
+  .general-thumb-info
+    %p
+      = real_estate_object.title
+    %p
+      = real_estate_object.description
+    %p € #{real_estate_object.price}
+    %p
+      = real_estate_object.area
+    %p
+      = real_estate_object.rooms
+    %p
+      = real_estate_object.floor
+    %p
+      = real_estate_object.category.title

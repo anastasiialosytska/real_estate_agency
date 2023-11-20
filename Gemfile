@@ -17,6 +17,7 @@ gem 'tailwindcss-rails'
 gem 'turbo-rails'
 
 gem 'cancancan', '~> 3.5'
+gem 'carrierwave', '~> 3.0'
 gem 'devise', '~> 4.9', '>= 4.9.3'
 gem 'haml-rails', '~> 2.1'
 
