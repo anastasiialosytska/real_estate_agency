@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PhotoUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
@@ -12,10 +14,10 @@ class PhotoUploader < CarrierWave::Uploader::Base
   end
 
   def default_url
-    "/images/fallback/" + [version_name, "default.png"].compact.join('_')
+    "/images/fallback/#{[version_name, 'default.png'].compact.join('_')}"
   end
 
   def extension_allowlist
-    %w(jpg jpeg gif png)
+    %w[jpg jpeg gif png]
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RealEstateObjectsController < ApplicationController
   before_action :find_real_estate_object, only: :show
 
@@ -21,7 +23,7 @@ class RealEstateObjectsController < ApplicationController
       end
       redirect_to @real_estate_object
     else
-      render "new"
+      render 'new'
     end
   end
 
