@@ -30,6 +30,8 @@ gem 'tzinfo-data', platforms: %i[windows jruby]
 group :development, :test do
   gem 'factory_bot_rails', '~> 6.2'
   gem 'faker'
+  gem 'pry'
+  gem 'rails-controller-testing', '~> 1.0'
   gem 'rspec-rails', '~> 6.0.0'
   gem 'rubocop', require: false
   gem 'rubocop-rails', '~> 2.15', require: false
@@ -38,7 +40,6 @@ end
 
 group :development do
   gem 'error_highlight', '>= 0.4.0', platforms: [:ruby]
-  gem 'pry'
   gem 'web-console'
 end
 

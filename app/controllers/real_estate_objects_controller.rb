@@ -15,12 +15,9 @@ class RealEstateObjectsController < ApplicationController
   end
 
   def create
-    @real_estate_object = RealEstateObject.create!(real_estate_object_params)
+    @real_estate_object = RealEstateObject.create(real_estate_object_params)
     if @real_estate_object.save
-      # binding.pry
-      params[:photo_attachments]['photo'].each do |p|
-        @real_estate_object.photo_attachments.create!(photo: p, real_estate_object_id: @real_estate_object.id)
-      end
+      PhotoAttachmentCreatorService.call(photo_params, @real_estate_object.id)
       redirect_to @real_estate_object
     else
       render 'new'
@@ -28,6 +25,10 @@ class RealEstateObjectsController < ApplicationController
   end
 
   private
+
+  def photo_params
+    params[:photo_attachments] ? params[:photo_attachments]['photo'] : nil
+  end
 
   def find_real_estate_object
     @real_estate_object = RealEstateObject.find(params[:id])
