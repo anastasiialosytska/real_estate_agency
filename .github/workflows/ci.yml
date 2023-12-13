@@ -53,26 +53,6 @@ jobs:
           --health-retries 5
         ports:
           - 5432:5432
-    # services:
-    #   db:
-    #     image: postgres:latest
-    #     ports:
-    #       - 5432:5432
-    #     options: --health-cmd pg_isready
-    #              --health-interval 10s
-    #              --health-timeout 5s
-    #              --health-retries 5
-    #     env:
-    #       POSTGRES_HOST: localhost
-    #       POSTGRES_PORT: 5432
-    #       POSTGRES_DB: real_estate_agency_test
-    #       POSTGRES_USER: dummy
-    #       POSTGRES_PASSWORD: password
-    # env:
-    #   RAILS_ENV: test
-    #   RAILS_MASTER_KEY: ${{ secrets.RAILS_TEST_KEY }}
-    #   DB_USERNAME: dummy
-    #   DB_PASSWORD: password
 
     steps:
       - name: Git clone our repo

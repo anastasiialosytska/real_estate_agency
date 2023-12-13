@@ -11,11 +11,10 @@ AllCops:
     - config/**/*
     - db/schema.rb
     - db/migrate/*
+    - vendor/**/*
 
 RSpec/NestedGroups:
   Max: 5
 
 Style/Documentation:
   Enabled: false
-
-
