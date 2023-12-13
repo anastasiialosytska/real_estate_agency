@@ -19,5 +19,3 @@ test:
 production:
   <<: *default
   database: real_estate_agency_production
-  username: real_estate_agency
-  password: <%= ENV["REAL_ESTATE_AGENCY_DATABASE_PASSWORD"] %>

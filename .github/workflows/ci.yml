@@ -47,12 +47,12 @@ jobs:
         env:
           POSTGRES_HOST: localhost
           POSTGRES_DB: real_estate_agency_test
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: dummy
+          POSTGRES_PASSWORD: password
     env:
       RAILS_ENV: test
       RAILS_MASTER_KEY: ${{ secrets.RAILS_TEST_KEY }}
-      DB_USERNAME: anastasiialosytska
+      DB_USERNAME: dummy
       DB_PASSWORD: password
 
     steps:
@@ -98,7 +98,7 @@ jobs:
     env:
       RAILS_ENV: test
       RAILS_MASTER_KEY: ${{ secrets.RAILS_TEST_KEY }}
-      DB_USERNAME: anastasiialosytska
+      DB_USERNAME: dummy
       DB_PASSWORD: password
 
     steps:
