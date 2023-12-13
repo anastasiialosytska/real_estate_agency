@@ -1,0 +1,115 @@
+name: CI
+
+on:
+  push:
+    branches: master
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  precompile:
+    runs-on: ubuntu-20.04
+    env:
+      RAILS_ENV: test
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_TEST_KEY }}
+
+    steps:
+      - name: Git clone our repo
+        uses: actions/checkout@v3
+
+      - name: Prepare rails environment
+        uses: ./.github/actions/prepare
+
+      - name: Compile assets
+        run: |
+          bundle exec rake assets:clobber
+          bundle exec rake assets:precompile
+
+      - name: Cache assets
+        id: cache-assets
+        uses: actions/cache@v3
+        with:
+          key: cache-assets-v1-${{ runner.os }}-${{ github.ref }}
+          path: |
+            public/assets
+            app/assets/builds
+  rspec:
+    needs: [precompile]
+    runs-on: ubuntu-20.04
+    services:
+      db:
+        image: postgres:12-alpine
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        env:
+          POSTGRES_HOST: localhost
+          POSTGRES_DB: real_estate_agency_test
+          POSTGRES_USER: anastasiialosytska
+          POSTGRES_PASSWORD: password
+    env:
+      RAILS_ENV: test
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_TEST_KEY }}
+      DB_USERNAME: anastasiialosytska
+      DB_PASSWORD: password
+
+    steps:
+      - name: Git clone our repo
+        uses: actions/checkout@v3
+
+      - name: Prepare rails environment
+        uses: ./.github/actions/prepare
+
+      - name: Setup db
+        run: bundle exec rake db:create db:schema:load --trace
+
+      - name: Restore cached assets
+        uses: actions/cache@v3
+        with:
+          path: |
+            public/assets
+            app/assets/builds
+          key: cache-assets-v1-${{ runner.os }}-${{ github.ref }}
+
+      - name: Run rspec
+        run: bundle exec rspec --format progress
+
+      - name: Upload coverage results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: coverage-report
+          path: coverage
+
+  rubocop:
+    runs-on: ubuntu-20.04
+    services:
+      db:
+        image: postgres:12-alpine
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        env:
+          POSTGRES_HOST: localhost
+          POSTGRES_DB: real_estate_agency_test
+          POSTGRES_USER: go_consulted_website
+          POSTGRES_PASSWORD: password
+    env:
+      RAILS_ENV: test
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_TEST_KEY }}
+      DB_USERNAME: anastasiialosytska
+      DB_PASSWORD: password
+
+    steps:
+      - name: Git clone our repo
+        uses: actions/checkout@v3
+
+      - name: Prepare rails environment
+        uses: ./.github/actions/prepare
+
+      - name: Setup db
+        run: bundle exec rake db:create db:schema:load --trace
+
+      - name: Run rubocop
+        run: bundle exec rubocop
