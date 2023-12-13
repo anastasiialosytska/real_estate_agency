@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   precompile:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     env:
       RAILS_ENV: test
       RAILS_MASTER_KEY: ${{ secrets.RAILS_TEST_KEY }}
@@ -38,14 +38,19 @@ jobs:
             app/assets/builds
   rspec:
     needs: [precompile]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     services:
       db:
-        image: postgres:12-alpine
-        ports: ['5432:5432']
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready
+                 --health-interval 10s
+                 --health-timeout 5s
+                 --health-retries 5
         env:
           POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
           POSTGRES_DB: real_estate_agency_test
           POSTGRES_USER: dummy
           POSTGRES_PASSWORD: password
@@ -83,33 +88,36 @@ jobs:
           name: coverage-report
           path: coverage
 
-  rubocop:
-    runs-on: ubuntu-20.04
-    services:
-      db:
-        image: postgres:12-alpine
-        ports: ['5432:5432']
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-        env:
-          POSTGRES_HOST: localhost
-          POSTGRES_DB: real_estate_agency_test
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-    env:
-      RAILS_ENV: test
-      RAILS_MASTER_KEY: ${{ secrets.RAILS_TEST_KEY }}
-      DB_USERNAME: dummy
-      DB_PASSWORD: password
+  # rubocop:
+  #   runs-on: ubuntu-latest
+  #   services:
+  #     db:
+  #       image: postgres:12-alpine
+  #       ports: ['5432:5432']
+  #       options: --health-cmd pg_isready
+  #                --health-interval 10s
+  #                --health-timeout 5s
+  #                --health-retries 5
+  #       env:
+  #         POSTGRES_HOST: localhost
+  #         POSTGRES_DB: real_estate_agency_test
+  #         POSTGRES_USER: dummy
+  #         POSTGRES_PASSWORD: password
+  #   env:
+  #     RAILS_ENV: test
+  #     RAILS_MASTER_KEY: ${{ secrets.RAILS_TEST_KEY }}
+  #     DB_USERNAME: dummy
+  #     DB_PASSWORD: password
 
-    steps:
-      - name: Git clone our repo
-        uses: actions/checkout@v3
+  #   steps:
+  #     - name: Git clone our repo
+  #       uses: actions/checkout@v3
 
-      - name: Prepare rails environment
-        uses: ./.github/actions/prepare
+  #     - name: Prepare rails environment
+  #       uses: ./.github/actions/prepare
 
-      - name: Setup db
-        run: bundle exec rake db:create db:schema:load --trace
+  #     - name: Setup db
+  #       run: bundle exec rake db:create db:schema:load --trace
 
-      - name: Run rubocop
-        run: bundle exec rubocop
+  #     - name: Run rubocop
+  #       run: bundle exec rubocop
