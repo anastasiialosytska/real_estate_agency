@@ -1,0 +1,13 @@
+en:
+  shared:
+    footer:
+      company_name: 'REAgency'
+      all_rights: 'All rights reserved'
+    header:
+      company_name: 'REAgency'
+      home: 'Home'
+      rent: 'Rent'
+      services: 'Services'
+      blog: 'Blog'
+      about: 'About'
+      contact: 'Contact'

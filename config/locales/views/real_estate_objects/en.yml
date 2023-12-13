@@ -1,0 +1,15 @@
+en:
+  real_estate_objects:
+    new:
+      create: 'Create a new object'
+      photos: 'Photos'
+      add: 'Add object'
+    show:
+      currency: '€'
+    real_estate_object:
+      currency: '€'
+      area: "%{area} м²"
+      rooms: "Rooms: %{rooms}"
+      floor: "Floor: %{floor}"
+
+

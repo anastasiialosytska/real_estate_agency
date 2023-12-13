@@ -1,1 +1,9 @@
-%p Welcome to our Real Estate Agency
+.container.mt-10.mb-40.grid.gap-4.mx-auto
+  %h1.text-center.text-xl.text-indigo-900.font-display.font-semibold
+    = t('.welcome')
+  = link_to 'New announcement', new_real_estate_object_path, class: 'bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600 shadow-lg'
+  %p
+    = t('.available')
+  = render partial: 'real_estate_objects/real_estate_object', collection: @real_estate_objects
+
+

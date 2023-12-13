@@ -1,0 +1,53 @@
+.container.mt-20.mb-40.grid.grid-cols-2.gap-4.mx-auto
+  .ml-28.mr-14
+    %h4.text-center.text-xl.text-indigo-900.font-display.font-semibold.lg:text-left.xl:text-xl.xl:text-bold
+      = t('.create')
+    .mt-12
+      = form_for @real_estate_object, html: { multipart: true } do |f|
+        %div
+          = f.label :category, class: 'text-sm font-bold text-gray-700 tracking-wide'
+        %div
+          = f.collection_select :category_id, Category.all, :id, :title, class: 'w-full text-lg py-2 border-b border-gray-300'
+        .mt-8
+          %div
+            = f.label :title, class: 'text-sm font-bold text-gray-700 tracking-wide'
+          %div
+            = f.text_field :title, class: 'w-full text-lg py-2 border-b border-gray-300'
+        .mt-8
+          %div
+            = f.label :description, class: 'text-sm font-bold text-gray-700 tracking-wide'
+          %div
+            = f.text_field :description, class: 'w-full text-lg py-2 border-b border-gray-300'
+        .mt-8
+          %div
+            = f.label :area, class: 'text-sm font-bold text-gray-700 tracking-wide'
+          %div
+            = f.number_field :area, class: 'w-full text-lg py-2 border-b border-gray-300'
+        .mt-8
+          %div
+            = f.label :rooms, class: 'text-sm font-bold text-gray-700 tracking-wide'
+          %div
+            = f.number_field :rooms, class: 'w-full text-lg py-2 border-b border-gray-300'
+        .mt-8
+          %div
+            = f.label :floor, class: 'text-sm font-bold text-gray-700 tracking-wide'
+          %div
+            = f.number_field :floor, class: 'w-full text-lg py-2 border-b border-gray-300'
+        .mt-8
+          %div
+            = f.label :price, class: 'text-sm font-bold text-gray-700 tracking-wide'
+          %div
+            = f.number_field :price, class: 'w-full text-lg py-2 border-b border-gray-300'
+        .mt-8
+          = f.fields_for :photo_attachments do |i|
+            %div
+              = i.label :photo_attachments, t('.photos'), class: 'text-sm font-bold text-gray-700 tracking-wide'
+            %div
+              = i.file_field :photo_attachment, multiple: true, include_hidden: false, name: "photo_attachments[photo][]", class: 'w-full text-lg py-2 border-b border-gray-300'
+          = f.submit t('.add'), class: 'bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600 shadow-lg'
+  .ml-28.mr-14
+    = image_tag(asset_url('create_object_image.jpeg'),
+                    class: 'mb-24 w-100',
+                    width: 872,
+                    height: 424)
+
