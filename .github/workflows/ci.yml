@@ -60,7 +60,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Prepare rails environment
-        uses: ./.github/actions/prepare
+        uses: ./.github/prepare
 
       - name: Setup db
         run: bundle exec rake db:create db:schema:load --trace
@@ -106,7 +106,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Prepare rails environment
-        uses: ./.github/actions/prepare
+        uses: ./.github/prepare
 
       - name: Setup db
         run: bundle exec rake db:create db:schema:load --trace
