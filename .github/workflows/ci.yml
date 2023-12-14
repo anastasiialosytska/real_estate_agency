@@ -44,6 +44,8 @@ jobs:
       postgres:
         image: postgres:latest
         env:
+          POSTGRES_HOST: localhost
+          POSTGRES_DB: real_estate_agency_test
           POSTGRES_USER: dummy
           POSTGRES_PASSWORD: password
         options: >-
