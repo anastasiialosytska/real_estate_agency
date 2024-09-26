@@ -36,6 +36,7 @@ jobs:
           path: |
             public/assets
             app/assets/builds
+
   rspec:
     needs: [precompile]
     runs-on: ubuntu-latest
@@ -44,10 +45,8 @@ jobs:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_HOST: localhost
           POSTGRES_USER: dummy
-          PGUSER: dummy
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_PASSWORD: password
           POSTGRES_DB: real_estate_agency_test
         options: >-
           --health-cmd pg_isready
@@ -55,7 +54,14 @@ jobs:
           --health-timeout 5s
           --health-retries 5
         ports:
-          - 5432/tcp
+          - 5432:5432
+
+    env:
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: dummy
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: real_estate_agency_test
 
     steps:
       - name: Git clone our repo
@@ -65,7 +71,7 @@ jobs:
         uses: ./.github/actions/prepare
 
       - name: Check PostgreSQL connection
-        run: pg_isready -h postgres -p 5432 -U dummy
+        run: pg_isready -h localhost -p 5432 -U dummy
 
       - name: Setup db
         run: bundle exec rake db:create db:schema:load --trace
