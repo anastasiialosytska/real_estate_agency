@@ -84,7 +84,7 @@ jobs:
         uses: ./.github/actions/prepare
 
       - name: Check PostgreSQL connection
-        run: pg_isready -h postgres -p 5432 -U root
+        run: pg_isready -h postgres -p 5432 -U dummy
 
       - name: Setup db
         run: bundle exec rake db:create db:schema:load --trace
