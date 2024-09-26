@@ -44,10 +44,17 @@ jobs:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_HOST: localhost
-          POSTGRES_DB: real_estate_agency_test
-          POSTGRES_USER: dummy
-          POSTGRES_PASSWORD: password
+          env:
+          PG_DATABASE: postgres
+          PG_HOST: localhost
+          PG_PORT: 5432
+          PG_USER: dummy
+          PG_PASSWORD: password
+          RAILS_ENV: test
+          # POSTGRES_HOST: localhost
+          # POSTGRES_DB: real_estate_agency_test
+          # POSTGRES_USER: dummy
+          # POSTGRES_PASSWORD: password
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -55,12 +62,6 @@ jobs:
           --health-retries 5
         ports:
           - 5432:5432
-
-    env:
-      RAILS_ENV: test
-      # RAILS_MASTER_KEY: ${{ secrets.RAILS_TEST_KEY }}
-      DB_USERNAME: dummy
-      DB_PASSWORD: password
 
     steps:
       - name: Git clone our repo
