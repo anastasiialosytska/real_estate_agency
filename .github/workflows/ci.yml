@@ -42,9 +42,11 @@ jobs:
 
     services:
       postgres:
-        image: postgres:latest
+        image: postgres
         ports: ["5432:5432"]
         env:
+          POSTGRES_HOST: postgres
+          POSTGRES_PORT: 5432
           POSTGRES_USER: dummy
           POSTGRES_PASSWORD: password
         options: >-
