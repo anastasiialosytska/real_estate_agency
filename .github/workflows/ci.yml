@@ -44,7 +44,6 @@ jobs:
       postgres:
         image: postgres:latest
         env:
-          env:
           PG_DATABASE: postgres
           PG_HOST: localhost
           PG_PORT: 5432
