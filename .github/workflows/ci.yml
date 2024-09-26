@@ -42,13 +42,14 @@ jobs:
 
     services:
       postgres:
-        image: postgres
+        image: postgres:latest
         ports: ["5432:5432"]
         env:
-          POSTGRES_HOST: postgres
-          POSTGRES_PORT: 5432
+          # POSTGRES_HOST: postgres
+          # POSTGRES_PORT: 5432
           POSTGRES_USER: dummy
           POSTGRES_PASSWORD: password
+          POSTGRES_DB: real_estate_agency_test
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -80,6 +81,9 @@ jobs:
 
       - name: Prepare rails environment
         uses: ./.github/actions/prepare
+
+      - name: Check PostgreSQL connection
+        run: pg_isready -h postgres -p 5432 -U root
 
       - name: Setup db
         run: bundle exec rake db:create db:schema:load --trace
