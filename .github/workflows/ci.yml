@@ -37,52 +37,95 @@ jobs:
             public/assets
             app/assets/builds
   rspec:
-    needs: [precompile]
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        ruby-version:
+        - '3.1'
     services:
-      postgres:
-        image: postgres:latest
+      db:
+        image: postgres:14-alpine
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
         env:
-          POSTGRES_USER: dummy
-          PGUSER: dummy
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST: localhost
           POSTGRES_DB: real_estate_agency_test
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432/tcp
-
+          POSTGRES_USER: dummy
+          POSTGRES_PASSWORD: password
+    env:
+      RAILS_ENV: test
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_TEST_KEY }}
+      DB_USERNAME: dummy
+      DB_PASSWORD: password
     steps:
-      - name: Git clone our repo
+      - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Prepare rails environment
-        uses: ./.github/actions/prepare
-
-      - name: Setup db
-        run: bundle exec rake db:create db:schema:load --trace
-
-      - name: Restore cached assets
-        uses: actions/cache@v3
+      - name: Setup dependencies for gem webp-ffi
+        run: sudo apt-get install libjpeg-dev libpng-dev libtiff-dev libwebp-dev
+        shell: bash
+      - name: Set up Ruby ${{ matrix.ruby-version }}
+        uses: ruby/setup-ruby@v1
         with:
-          path: |
-            public/assets
-            app/assets/builds
-          key: cache-assets-v1-${{ runner.os }}-${{ github.ref }}
-
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
+      - name: Set up database
+        run: |
+          bin/rails db:create
+          bin/rails db:schema:load
       - name: Run rspec
         run: bundle exec rspec --format progress
-
       - name: Upload coverage results
         uses: actions/upload-artifact@v3
         if: always()
         with:
           name: coverage-report
           path: coverage
+    # needs: [precompile]
+    # runs-on: ubuntu-latest
+
+    # services:
+    #   postgres:
+    #     image: postgres:latest
+    #     env:
+    #       POSTGRES_USER: dummy
+    #       PGUSER: dummy
+    #       POSTGRES_PASSWORD: postgres
+    #       POSTGRES_DB: real_estate_agency_test
+    #     options: >-
+    #       --health-cmd pg_isready
+    #       --health-interval 10s
+    #       --health-timeout 5s
+    #       --health-retries 5
+    #     ports:
+    #       - 5432/tcp
+
+    # steps:
+    #   - name: Git clone our repo
+    #     uses: actions/checkout@v3
+
+    #   - name: Prepare rails environment
+    #     uses: ./.github/actions/prepare
+
+    #   - name: Setup db
+    #     run: bundle exec rake db:create db:schema:load --trace
+
+    #   - name: Restore cached assets
+    #     uses: actions/cache@v3
+    #     with:
+    #       path: |
+    #         public/assets
+    #         app/assets/builds
+    #       key: cache-assets-v1-${{ runner.os }}-${{ github.ref }}
+
+    #   - name: Run rspec
+    #     run: bundle exec rspec --format progress
+
+    #   - name: Upload coverage results
+    #     uses: actions/upload-artifact@v3
+    #     if: always()
+    #     with:
+    #       name: coverage-report
+    #       path: coverage
 
   rubocop:
     runs-on: ubuntu-latest
