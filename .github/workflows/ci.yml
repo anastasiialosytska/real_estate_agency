@@ -1,11 +1,5 @@
 name: CI
 
-env:
-  RAILS_ENV: test
-  # RAILS_MASTER_KEY: ${{ secrets.RAILS_TEST_KEY }}
-  DB_USERNAME: dummy
-  DB_PASSWORD: password
-
 on:
   push:
     branches: master
@@ -61,6 +55,12 @@ jobs:
           --health-retries 5
         ports:
           - 5432:5432
+
+    env:
+      RAILS_ENV: test
+      # RAILS_MASTER_KEY: ${{ secrets.RAILS_TEST_KEY }}
+      DB_USERNAME: dummy
+      DB_PASSWORD: password
 
     steps:
       - name: Git clone our repo
