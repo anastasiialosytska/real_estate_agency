@@ -43,14 +43,14 @@ jobs:
     services:
       postgres:
         image: postgres:latest
-        ports: ["5432:5432"]
         env:
-          # POSTGRES_HOST: postgres
+          POSTGRES_HOST: localhost
           # POSTGRES_PORT: 5432
           POSTGRES_USER: dummy
           PGUSER: dummy
           POSTGRES_PASSWORD: password
           POSTGRES_DB: real_estate_agency_test
+        ports: 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
