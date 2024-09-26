@@ -44,16 +44,16 @@ jobs:
       postgres:
         image: postgres:latest
         env:
-          PG_DATABASE: postgres
-          PG_HOST: localhost
-          PG_PORT: 5432
-          PG_USER: dummy
-          PG_PASSWORD: password
-          RAILS_ENV: test
-          # POSTGRES_HOST: localhost
-          # POSTGRES_DB: real_estate_agency_test
-          # POSTGRES_USER: dummy
+          # PG_DATABASE: postgres
+          # PG_HOST: localhost
+          # PG_PORT: 5432
+          # PG_USER: dummy
           # POSTGRES_PASSWORD: password
+          RAILS_ENV: test
+          POSTGRES_HOST: localhost
+          POSTGRES_DB: real_estate_agency_test
+          POSTGRES_USER: dummy
+          POSTGRES_PASSWORD: password
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
