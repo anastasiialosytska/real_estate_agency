@@ -49,7 +49,6 @@ jobs:
           PGUSER: dummy
           POSTGRES_PASSWORD: password
           POSTGRES_DB: real_estate_agency_test
-          POSTGRES_HOST_AUTH_METHOD: trust
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
