@@ -42,25 +42,34 @@ jobs:
 
     services:
       postgres:
-        image: postgres:latest
+        image: postgres:14
+        ports: ["5432:5432"]
         env:
-          # PG_DATABASE: postgres
-          # PG_HOST: localhost
-          # PG_PORT: 5432
-          # PG_USER: dummy
-          # POSTGRES_PASSWORD: password
-          RAILS_ENV: test
-          POSTGRES_HOST: localhost
-          POSTGRES_DB: real_estate_agency_test
-          POSTGRES_USER: dummy
           POSTGRES_PASSWORD: password
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-        ports:
-          - 5432:5432
+      # postgres:
+      #   image: postgres:latest
+      #   env:
+      #     PG_DATABASE: postgres
+      #     PG_HOST: localhost
+      #     PG_PORT: 5432
+      #     PG_USER: dummy
+      #     POSTGRES_PASSWORD: password
+      #     RAILS_ENV: test
+      #     POSTGRES_HOST: localhost
+      #     POSTGRES_PORT: 5432
+      #     POSTGRES_DB: real_estate_agency_test
+      #     POSTGRES_USER: dummy
+      #     POSTGRES_PASSWORD: password
+      #   options: >-
+      #     --health-cmd pg_isready
+      #     --health-interval 10s
+      #     --health-timeout 5s
+      #     --health-retries 5
 
     steps:
       - name: Git clone our repo
