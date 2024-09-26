@@ -6,7 +6,7 @@ describe PhotoUploader do
   include CarrierWave::Test::Matchers
 
   let(:real_estate_object) { build(:real_estate_object) }
-  let(:path) { Rails.root.join('app/assets/images/default_photo.png') }
+  let(:path) { Rails.root.join('app/assets/images/default_photo.jpg') }
   let(:uploader) { described_class.new(real_estate_object, :photo) }
 
   after do
