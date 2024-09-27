@@ -45,11 +45,10 @@ jobs:
         ports: ['5432:5432']
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
         env:
-          DB_HOST: localhost
-          DB_PORT: 5432
+          # POSTGRES_HOST: localhost
           POSTGRES_DB: real_estate_agency_test
-          DB_USERNAME: dummy
-          DB_PASSWORD: password
+          # POSTGRES_USER: dummy
+          # POSTGRES_PASSWORD: password
     env:
       DATABASE_URL: postgres://postgres:@localhost:5432/real_estate_agency_test
       RAILS_ENV: test
