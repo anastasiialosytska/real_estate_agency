@@ -37,14 +37,11 @@ jobs:
             public/assets
             app/assets/builds
   rspec:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        ruby-version:
-        - '3.3'
+    needs: [precompile]
+    runs-on: ubuntu-20.04
     services:
       db:
-        image: postgres:14-alpine
+        image: postgres:latest
         ports: ['5432:5432']
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
         env:
@@ -57,23 +54,28 @@ jobs:
       RAILS_MASTER_KEY: ${{ secrets.RAILS_TEST_KEY }}
       DB_USERNAME: dummy
       DB_PASSWORD: password
+
     steps:
-      - name: Checkout code
+      - name: Git clone our repo
         uses: actions/checkout@v3
-      - name: Setup dependencies for gem webp-ffi
-        run: sudo apt-get install libjpeg-dev libpng-dev libtiff-dev libwebp-dev
-        shell: bash
-      - name: Set up Ruby ${{ matrix.ruby-version }}
-        uses: ruby/setup-ruby@v1
+
+      - name: Prepare rails environment
+        uses: ./.github/actions/prepare
+
+      - name: Setup db
+        run: bundle exec rake db:create db:schema:load --trace
+
+      - name: Restore cached assets
+        uses: actions/cache@v3
         with:
-          ruby-version: ${{ matrix.ruby-version }}
-          bundler-cache: true
-      - name: Set up database
-        run: |
-          bin/rails db:create
-          bin/rails db:schema:load
+          path: |
+            public/assets
+            app/assets/builds
+          key: cache-assets-v1-${{ runner.os }}-${{ github.ref }}
+
       - name: Run rspec
         run: bundle exec rspec --format progress
+
       - name: Upload coverage results
         uses: actions/upload-artifact@v3
         if: always()
