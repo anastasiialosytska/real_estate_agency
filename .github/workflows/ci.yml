@@ -48,7 +48,7 @@ jobs:
           # POSTGRES_HOST: localhost
           POSTGRES_DB: real_estate_agency_test
           # POSTGRES_USER: dummy
-          # POSTGRES_PASSWORD: password
+          POSTGRES_PASSWORD: password
     env:
       DATABASE_URL: postgres://postgres:@localhost:5432/real_estate_agency_test
       RAILS_ENV: test
