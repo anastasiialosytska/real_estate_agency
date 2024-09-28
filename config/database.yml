@@ -17,7 +17,7 @@ test:
   database: real_estate_agency_test
   host: localhost
   port: 5432
-  username: dummy
+  username: dummytest
   password: password
 
 production:
