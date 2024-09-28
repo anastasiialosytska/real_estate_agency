@@ -46,7 +46,8 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
         env:
           POSTGRES_DB: real_estate_agency_test
-          POSTGRES_PASSWORD: password
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
 
     env:
       DATABASE_URL: postgres://postgres:@localhost:5432/real_estate_agency_test
@@ -72,6 +73,10 @@ jobs:
           key: cache-assets-v1-${{ runner.os }}-${{ github.ref }}
 
       - name: Run rspec
+        env:
+          RAILS_ENV: test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         run: bundle exec rspec --format progress
 
       - name: Upload coverage results
