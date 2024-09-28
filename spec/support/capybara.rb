@@ -43,12 +43,3 @@ Capybara.configure do |config|
   config.server = :puma, { Silent: true }
   config.server_port = 54_321
 end
-
-RSpec.configure do |config|
-  config.before do
-    Helpers::Download.clear_downloads
-  end
-  config.append_after(:each, type: :feature) do
-    Capybara.reset_session!
-  end
-end
