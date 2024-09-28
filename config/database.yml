@@ -15,10 +15,7 @@ development:
 test:
   <<: *default
   database: real_estate_agency_test
-  # host: localhost
-  # port: 5432
-  # username: dummytest
-  password: password
+  password: passwordg
 
 production:
   <<: *default
