@@ -22,8 +22,6 @@ Capybara.register_driver(:chrome) do |app|
 
   options.add_argument('disable-features=VizDisplayCompositor')
 
-  options.add_preference(:download, default_directory: Helpers::Download::DOWNLOAD_PATH.to_s)
-
   Capybara::Selenium::Driver.new(
     app,
     browser: :chrome,
