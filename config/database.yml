@@ -15,7 +15,7 @@ development:
 test:
   <<: *default
   database: real_estate_agency_test
-  password: passwordg
+  password: password
 
 production:
   <<: *default
