@@ -62,6 +62,12 @@ jobs:
         uses: ./.github/actions/prepare
 
       - name: Setup db
+        env:
+          DATABASE_URL: postgres://postgres:@localhost:5432/real_estate_agency_test
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_TEST_KEY }}
+          RAILS_ENV: test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
         run: bundle exec rake db:create db:schema:load --trace
 
       - name: Restore cached assets
@@ -73,10 +79,6 @@ jobs:
           key: cache-assets-v1-${{ runner.os }}-${{ github.ref }}
 
       - name: Run rspec
-        env:
-          RAILS_ENV: test
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
         run: bundle exec rspec --format progress
 
       - name: Upload coverage results
