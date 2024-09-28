@@ -46,7 +46,6 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
         env:
           POSTGRES_DB: real_estate_agency_test
-          POSTGRES_USER: dummy
           POSTGRES_PASSWORD: password
 
     env:
@@ -62,11 +61,6 @@ jobs:
         uses: ./.github/actions/prepare
 
       - name: Setup db
-        env:
-          PGHOST: localhost
-          PGUSER: dummy
-          PGPORT: 5432
-          RAILS_ENV: test
         run: bundle exec rake db:create db:schema:load --trace
 
       - name: Restore cached assets
