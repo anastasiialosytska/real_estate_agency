@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '3.1.3'
+ruby '3.3.5'
 gem 'draper'
 gem 'font-awesome-sass'
 gem 'importmap-rails'
@@ -39,7 +39,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'error_highlight', '>= 0.4.0', platforms: [:ruby]
   gem 'web-console'
 end
 
@@ -47,4 +46,5 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 5.0'
+  gem 'simplecov', '~> 0.21', require: false
 end

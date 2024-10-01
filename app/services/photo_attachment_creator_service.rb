@@ -3,7 +3,7 @@
 class PhotoAttachmentCreatorService
   include Callable
 
-  DEFAULT_PHOTO_PATH = 'app/assets/images/default_photo.png'
+  DEFAULT_PHOTO_PATH = 'app/assets/images/default_photo.jpg'
 
   def initialize(attached_photos, object_id)
     @attached_photos = attached_photos
